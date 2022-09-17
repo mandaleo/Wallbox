@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import WallboxCommon
+import EMS
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
   var window: UIWindow?
+  private var coordinator: Coordinator?
   
   func scene(_ scene: UIScene,
              willConnectTo session: UISceneSession,
@@ -23,7 +26,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 private extension SceneDelegate {
   private func initialController() -> UINavigationController {
-    let navigation = UINavigationController(rootViewController: ViewController())
+    let navigation = UINavigationController()
+    coordinator = DashboardCoordinator(navigationController: navigation)
+    coordinator?.start()
     return navigation
   }
 }
