@@ -16,7 +16,10 @@ public final class DashboardCoordinator: Coordinator {
   }
   
   public func start() {
-    let controller = DashboardViewcontroller()
+    let presenter = DashboardPresenter()
+    let dashboardView = DashboardView()
+    let controller = DashboardViewController(presenter: presenter,
+                                             dashboardView: dashboardView)
     navigationController.show(controller, sender: nil)
   }
 }

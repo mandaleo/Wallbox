@@ -22,14 +22,17 @@ final class DashboardView: UIView {
   private let dataSource: DashboardDataSource
   
   private lazy var collectionView: UICollectionView = {
-    let view = UICollectionView()
+    let view = UICollectionView(frame: .zero,
+                                collectionViewLayout: UICollectionViewLayout())
     view.isHidden = true
+    view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
   
   private lazy var loaderView: UIActivityIndicatorView = {
     let view = UIActivityIndicatorView(style: .large)
     view.isHidden = true
+    view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
   
@@ -39,6 +42,7 @@ final class DashboardView: UIView {
     view.font = Constant.mainFont
     view.numberOfLines = 0
     view.isHidden = true
+    view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
   
@@ -56,6 +60,7 @@ final class DashboardView: UIView {
   private func setupView() {
     [stateView, collectionView, loaderView].forEach(addSubview)
     dataSource.setup(collectionView: collectionView)
+    backgroundColor = .white
   }
   
   private func setupConstraints() {
