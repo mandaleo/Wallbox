@@ -71,6 +71,9 @@ extension DashboardViewModel {
       widgets.append(liveDataWidget)
     }
     
+    let statisticsWidget = statisticsWidget(from: historicalData)
+    widgets.append(statisticsWidget)
+    
     return widgets
   }
   
@@ -101,5 +104,17 @@ extension DashboardViewModel {
                                                    totalEnergy: liveData.totalEnergy,
                                                    currentEnergy: liveData.currentEnergy)
     return .init(type: .liveData(viewModel))
+  }
+  
+  private static func statisticsWidget(from historicalData: [HistoricalData]) -> DashboardWidgetViewModel {
+    let buildingConsumption = historicalData.map { $0.buildingDemand }.reduce(0, +)
+    let grid = historicalData.map { $0.gridPower }.reduce(0, +) / buildingConsumption * 100
+    let solar = historicalData.map { $0.solarPower }.reduce(0, +) / buildingConsumption * 100
+    let quasar = historicalData.map { $0.quasarsPower }.reduce(0, +) / buildingConsumption * 100
+    
+    return .init(type: .statistic(.init(buildingDemand: buildingConsumption,
+                                        gridPower: grid,
+                                        solarPower: solar,
+                                        quasarsPower: quasar)))
   }
 }
