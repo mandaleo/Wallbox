@@ -12,7 +12,7 @@ public protocol Identifiable: AnyObject {
 }
 
 public extension Identifiable {
-  public static var cellIdentifier: String {
+  static var cellIdentifier: String {
     return String(describing: Self.self)
   }
 }

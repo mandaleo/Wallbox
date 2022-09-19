@@ -9,11 +9,13 @@ struct DashboardWidgetViewModel {
   enum WidgetType {
     case chargedEnery(_ viewModel: AmountEnergyWidgetViewModel)
     case disChargedEnery(_ viewModel: AmountEnergyWidgetViewModel)
+    case liveData(_ viewModel: LiveDataWidgetViewModel)
     
     var uniqueId: String {
       switch self {
         case .chargedEnery: return "chargedEneryWidget"
         case .disChargedEnery: return "disChargedEneryWidget"
+        case .liveData: return "liveDataWidget"
       }
     }
   }

@@ -12,6 +12,7 @@ final class DashboardWidgetFactory {
   
   func registerCells(in colletionView: UICollectionView) {
     colletionView.register(AmountEnergyWidget.self)
+    colletionView.register(LiveDataWidget.self)
   }
   
   func dequeueReusableCell(for colletionView: UICollectionView,
@@ -26,6 +27,10 @@ final class DashboardWidgetFactory {
         return dequeAmountEnergyWidget(for: colletionView,
                                        with: viewModel,
                                        at: indexPath)
+      case .liveData(let viewModel):
+        return dequeLiveDataWidget(for: colletionView,
+                                   with: viewModel,
+                                   at: indexPath)
     }
   }
 }
@@ -36,6 +41,15 @@ extension DashboardWidgetFactory {
                                        at indexPath: IndexPath) -> UICollectionViewCell? {
     let cell = colletionView.dequeueReusableCell(withReuseIdentifier: AmountEnergyWidget.cellIdentifier,
                                                  for: indexPath) as? AmountEnergyWidget
+    cell?.setup(with: model)
+    return cell
+  }
+  
+  private func dequeLiveDataWidget(for colletionView: UICollectionView,
+                                       with model: LiveDataWidgetViewModel,
+                                       at indexPath: IndexPath) -> UICollectionViewCell? {
+    let cell = colletionView.dequeueReusableCell(withReuseIdentifier: LiveDataWidget.cellIdentifier,
+                                                 for: indexPath) as? LiveDataWidget
     cell?.setup(with: model)
     return cell
   }

@@ -66,6 +66,11 @@ extension DashboardViewModel {
     let dischargedWidget = disChargedEnergyWidget(from: historicalData)
     widgets.append(dischargedWidget)
     
+    if let liveData = liveData {
+      let liveDataWidget = liveDataWidget(from: liveData)
+      widgets.append(liveDataWidget)
+    }
+    
     return widgets
   }
   
@@ -87,4 +92,14 @@ extension DashboardViewModel {
     return .init(type: .disChargedEnery(viewModel))
   }
 
+  private static func liveDataWidget(from liveData: LiveData) -> DashboardWidgetViewModel {
+    let viewModel: LiveDataWidgetViewModel = .init(solarPower: liveData.solarPower,
+                                                   quasarsPower: liveData.quasarsPower,
+                                                   gridPower: liveData.gridPower,
+                                                   buildingDemand: liveData.buildingDemand,
+                                                   systemStateOfCharge: liveData.systemStateOfCharge,
+                                                   totalEnergy: liveData.totalEnergy,
+                                                   currentEnergy: liveData.currentEnergy)
+    return .init(type: .liveData(viewModel))
+  }
 }
