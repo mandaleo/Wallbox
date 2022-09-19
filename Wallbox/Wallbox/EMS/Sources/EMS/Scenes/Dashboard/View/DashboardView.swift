@@ -8,7 +8,7 @@
 import UIKit
 
 protocol DashboardViewDelegate: AnyObject {
-  func didSelect()
+  func didSelect(widget: DashboardWidgetViewModel.WidgetType)
 }
 
 final class DashboardView: UIView {
@@ -52,6 +52,8 @@ final class DashboardView: UIView {
     setupView()
     setupConstraints()
     dataSource.configureLayout(collectionView: collectionView)
+    dataSource.setup(collectionView: collectionView)
+    dataSource.delegate = self
   }
   
   required init?(coder: NSCoder) {
@@ -60,7 +62,6 @@ final class DashboardView: UIView {
   
   private func setupView() {
     [stateView, collectionView, loaderView].forEach(addSubview)
-    dataSource.setup(collectionView: collectionView)
     backgroundColor = .white
   }
   
@@ -107,5 +108,12 @@ final class DashboardView: UIView {
       case .error(viewModel: let viewModel):
         stateView.text = viewModel
     }
+  }
+}
+
+// MARK: - DashboardDataSourceDelegate
+extension DashboardView: DashboardDataSourceDelegate {
+  func didSelect(widget: DashboardWidgetViewModel.WidgetType) {
+    delegate?.didSelect(widget: widget)
   }
 }

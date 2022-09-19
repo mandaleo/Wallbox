@@ -5,6 +5,10 @@
 //  Created by Manuel Martinez Gomez on 17/9/22.
 //
 
+protocol DashboardSceneDelegate: AnyObject {
+  func show(historicalData: [HistoricalData])
+}
+
 protocol DashboardUI: AnyObject {
   func display(_ viewModel: DashboardViewModel)
 }
@@ -12,6 +16,7 @@ protocol DashboardUI: AnyObject {
 protocol DashboardPresenting: AnyObject {
   var ui: DashboardUI? { get set }
   func onViewDidLoad() async
+  func didSelect(widget: DashboardWidgetViewModel.WidgetType)
 }
 
 final class DashboardPresenter: DashboardPresenting {
@@ -28,7 +33,8 @@ final class DashboardPresenter: DashboardPresenting {
     var liveData: LiveData?
   }
   
-  var ui: DashboardUI?
+  weak var ui: DashboardUI?
+  weak var delegate: DashboardSceneDelegate?
   private var state = State(status: .loading)
   private let fetchLiveDataUseCase: FetchLiveDataUseCasing
   private let fetchHistoricalDataUseCase: FetchHistoricalDataUseCasing
@@ -42,6 +48,15 @@ final class DashboardPresenter: DashboardPresenting {
   func onViewDidLoad() async {
     await mutateState(with: .init(status: .loading))
     await fetchData()
+  }
+  
+  func didSelect(widget: DashboardWidgetViewModel.WidgetType) {
+    switch widget {
+      case .chargedEnery, .disChargedEnery, .liveData:
+        break
+      case .statistic:
+        delegate?.show(historicalData: state.historicalData)
+    }
   }
 }
 

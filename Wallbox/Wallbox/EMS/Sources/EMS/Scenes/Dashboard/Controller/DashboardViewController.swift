@@ -26,6 +26,7 @@ final class DashboardViewController: UIViewController {
   override func loadView() {
     super.loadView()
     view = dashboardView
+    dashboardView.delegate = self
   }
   
   override func viewDidLoad() {
@@ -40,6 +41,13 @@ final class DashboardViewController: UIViewController {
 extension DashboardViewController: DashboardUI {
   func display(_ viewModel: DashboardViewModel) {
     dashboardView.apply(state: viewModel)
+  }
+}
+
+// MARK: - DashboardViewDelegate
+extension DashboardViewController: DashboardViewDelegate {
+  func didSelect(widget: DashboardWidgetViewModel.WidgetType) {
+    presenter.didSelect(widget: widget)
   }
 }
 

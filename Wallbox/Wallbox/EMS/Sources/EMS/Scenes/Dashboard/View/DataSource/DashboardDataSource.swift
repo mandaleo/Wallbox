@@ -8,10 +8,10 @@
 import UIKit
 
 protocol DashboardDataSourceDelegate: AnyObject {
-  func didSelect()
+  func didSelect(widget: DashboardWidgetViewModel.WidgetType)
 }
 
-final class DashboardDataSource: NSObject, UICollectionViewDelegate {
+final class DashboardDataSource: NSObject {
   typealias CollectionDataSource = UICollectionViewDiffableDataSource<Int, DashboardWidgetViewModel>
   private var diffableDataSource: UICollectionViewDiffableDataSource<Int, DashboardWidgetViewModel>?
   weak var delegate: DashboardDataSourceDelegate?
@@ -53,6 +53,7 @@ final class DashboardDataSource: NSObject, UICollectionViewDelegate {
   }
   
   func setup(collectionView: UICollectionView) {
+    collectionView.delegate = self
     widgetFactory.registerCells(in: collectionView)
     diffableDataSource = CollectionDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, viewModel in
       self?.widgetFactory.dequeueReusableCell(for: collectionView,
@@ -68,5 +69,18 @@ final class DashboardDataSource: NSObject, UICollectionViewDelegate {
     snapshot.appendItems(widgets, toSection: 0)
     diffableDataSource?.apply(snapshot, animatingDifferences: false)
     self.widgets = widgets
+  }
+}
+
+// MARK: - UICollectionViewDelegate
+extension DashboardDataSource: UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView,
+                      didSelectItemAt indexPath: IndexPath) {
+    let widget = getWidget(by: indexPath)
+    delegate?.didSelect(widget: widget.type)
+  }
+  
+  private func getWidget(by indexPath: IndexPath) -> DashboardWidgetViewModel {
+    return widgets[indexPath.row]
   }
 }
