@@ -9,7 +9,7 @@ import UIKit
 
 final class AmountEnergyWidgetView: UIView {
   private enum Constant {
-    static let fontSize = UIFont.boldSystemFont(ofSize: 30)
+    static let fontSize = UIFont.boldSystemFont(ofSize: 12)
     static let margin: CGFloat = 8
     static let chargedColor: UIColor = .systemGreen
     static let dischargedColor: UIColor = .systemRed
@@ -20,6 +20,7 @@ final class AmountEnergyWidgetView: UIView {
     view.textAlignment = .center
     view.font = Constant.fontSize
     view.numberOfLines = 0
+    view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
   

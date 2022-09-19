@@ -51,6 +51,7 @@ final class DashboardView: UIView {
     super.init(frame: .zero)
     setupView()
     setupConstraints()
+    dataSource.configureLayout(collectionView: collectionView)
   }
   
   required init?(coder: NSCoder) {

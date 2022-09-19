@@ -7,11 +7,24 @@
 
 struct DashboardWidgetViewModel {
   enum WidgetType {
-    case amount(_ viewModel: AmountEnergyWidgetViewModel)
+    case chargedEnery(_ viewModel: AmountEnergyWidgetViewModel)
+    case disChargedEnery(_ viewModel: AmountEnergyWidgetViewModel)
+    
+    var uniqueId: String {
+      switch self {
+        case .chargedEnery: return "chargedEneryWidget"
+        case .disChargedEnery: return "disChargedEneryWidget"
+      }
+    }
   }
   
   let type: WidgetType
   let id: String
+  
+  init(type: WidgetType) {
+    self.type = type
+    self.id = type.uniqueId
+  }
 }
 
 // MARK: - Equatable, Hashable

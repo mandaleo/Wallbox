@@ -8,13 +8,18 @@
 import UIKit
 
 final class AmountEnergyWidget: UICollectionViewCell {
+  private enum Constant {
+    static let margin: CGFloat = 4
+  }
   private lazy var cellView: AmountEnergyWidgetView = {
     let view = AmountEnergyWidgetView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = .red
     return view
   }()
   
-  init() {
-    super.init(frame: .zero)
+  override init(frame: CGRect) {
+    super.init(frame: frame)
     setupView()
     setupConstraints()
   }
@@ -29,10 +34,10 @@ final class AmountEnergyWidget: UICollectionViewCell {
   
   private func setupConstraints() {
     let constraints = [
-      cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-      cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-      cellView.topAnchor.constraint(equalTo: contentView.topAnchor),
-      cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+      cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: Constant.margin),
+      cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -Constant.margin),
+      cellView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: Constant.margin),
+      cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -Constant.margin),
     ]
     
     NSLayoutConstraint.activate(constraints)

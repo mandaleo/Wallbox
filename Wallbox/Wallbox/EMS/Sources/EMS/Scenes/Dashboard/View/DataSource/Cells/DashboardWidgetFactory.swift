@@ -18,7 +18,11 @@ final class DashboardWidgetFactory {
                            with model: DashboardWidgetViewModel,
                            at indexPath: IndexPath) -> UICollectionViewCell? {
     switch model.type {
-      case .amount(let viewModel):
+      case .chargedEnery(let viewModel):
+        return dequeAmountEnergyWidget(for: colletionView,
+                                       with: viewModel,
+                                       at: indexPath)
+      case .disChargedEnery(let viewModel):
         return dequeAmountEnergyWidget(for: colletionView,
                                        with: viewModel,
                                        at: indexPath)

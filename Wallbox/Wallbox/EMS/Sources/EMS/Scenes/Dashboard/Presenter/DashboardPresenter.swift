@@ -50,6 +50,9 @@ extension DashboardPresenter {
     do {
       let (liveData, historicalData) = try await (fetchLiveDataUseCase.execute(),
                                                   fetchHistoricalDataUseCase.execute())
+      await mutateState(with: .init(status: .loaded,
+                                    historicalData: historicalData,
+                                    liveData: liveData))
     } catch  {
       await mutateState(with: .init(status: .error(error: error)))
     }

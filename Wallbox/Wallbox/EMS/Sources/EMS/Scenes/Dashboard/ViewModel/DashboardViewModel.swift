@@ -44,7 +44,9 @@ extension DashboardViewModel {
         return .init(status: .empty(viewModel: viewModel),
                      stateViewIsHidden: false)
       case .loaded:
-        let viewModel = [DashboardWidgetViewModel]()
+        let viewModel = widgets(from: state.historicalData,
+                                and: state.liveData)
+
         return .init(status: .loaded(widgets: viewModel),
                      collectionViewIsHidden: false)
       case .error(error: let error):
@@ -53,4 +55,36 @@ extension DashboardViewModel {
                      stateViewIsHidden: false)
     }
   }
+  
+  private static func widgets(from historicalData: [HistoricalData],
+                              and liveData: LiveData?) -> [DashboardWidgetViewModel] {
+    var widgets: [DashboardWidgetViewModel] = []
+    
+    let chargedWidget = chargedEnergyWidget(from: historicalData)
+    widgets.append(chargedWidget)
+    
+    let dischargedWidget = disChargedEnergyWidget(from: historicalData)
+    widgets.append(dischargedWidget)
+    
+    return widgets
+  }
+  
+  private static func chargedEnergyWidget(from historicalData: [HistoricalData]) -> DashboardWidgetViewModel {
+    let chargedEnergy = historicalData
+      .map { $0.quasarsPower }
+      .filter { $0 > 0 }
+      .reduce(0, +)
+    let viewModel: AmountEnergyWidgetViewModel = .init(amount: chargedEnergy)
+    return .init(type: .chargedEnery(viewModel))
+  }
+  
+  private static func disChargedEnergyWidget(from historicalData: [HistoricalData]) -> DashboardWidgetViewModel {
+    let disChargedEnergy = historicalData
+      .map { $0.quasarsPower }
+      .filter { $0 < 0 }
+      .reduce(0, +)
+    let viewModel: AmountEnergyWidgetViewModel = .init(amount: disChargedEnergy)
+    return .init(type: .disChargedEnery(viewModel))
+  }
+
 }
