@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WallboxUI
 
 final class LiveDataWidgetView: UIView {
   private enum Constant {
@@ -14,38 +15,38 @@ final class LiveDataWidgetView: UIView {
     static let verticalMargin = CGFloat(8)
   }
   
-  private lazy var solarPowerView: SourceAmountView = {
-    let view = SourceAmountView()
+  private lazy var solarPowerView: TitleAmountView = {
+    let view = TitleAmountView()
     return view
   }()
   
-  private lazy var quasarPowerView: SourceAmountView = {
-    let view = SourceAmountView()
+  private lazy var quasarPowerView: TitleAmountView = {
+    let view = TitleAmountView()
     return view
   }()
   
-  private lazy var gridPowerView: SourceAmountView = {
-    let view = SourceAmountView()
+  private lazy var gridPowerView: TitleAmountView = {
+    let view = TitleAmountView()
     return view
   }()
   
-  private lazy var buildingDemandView: SourceAmountView = {
-    let view = SourceAmountView()
+  private lazy var buildingDemandView: TitleAmountView = {
+    let view = TitleAmountView()
     return view
   }()
   
-  private lazy var systemStateOfChargeView: SourceAmountView = {
-    let view = SourceAmountView()
+  private lazy var systemStateOfChargeView: TitleAmountView = {
+    let view = TitleAmountView()
     return view
   }()
   
-  private lazy var totalEnergyView: SourceAmountView = {
-    let view = SourceAmountView()
+  private lazy var totalEnergyView: TitleAmountView = {
+    let view = TitleAmountView()
     return view
   }()
   
-  private lazy var currentEnergyView: SourceAmountView = {
-    let view = SourceAmountView()
+  private lazy var currentEnergyView: TitleAmountView = {
+    let view = TitleAmountView()
     return view
   }()
   
@@ -83,25 +84,25 @@ final class LiveDataWidgetView: UIView {
   }
   
   func setup(with model: LiveDataWidgetViewModel) {
-    let solar: SourceAmountViewModel = .init(source: "Solar:", amount: "\(model.solarPower)")
+    let solar: TitleAmountViewModel = .init(title: "Solar:", amount: "\(model.solarPower)kW")
     solarPowerView.setup(with: solar)
     
-    let quasar: SourceAmountViewModel = .init(source: "Quasar:", amount: "\(model.quasarsPower)")
+    let quasar: TitleAmountViewModel = .init(title: "Quasar:", amount: "\(model.quasarsPower)kW")
     quasarPowerView.setup(with: quasar)
     
-    let grid: SourceAmountViewModel = .init(source: "Grid:", amount: "\(model.gridPower)")
+    let grid: TitleAmountViewModel = .init(title: "Grid:", amount: "\(model.gridPower)kW")
     gridPowerView.setup(with: grid)
     
-    let building: SourceAmountViewModel = .init(source: "Building Demand:", amount: "\(model.buildingDemand)")
+    let building: TitleAmountViewModel = .init(title: "Building Demand:", amount: "\(model.buildingDemand)kW")
     buildingDemandView.setup(with: building)
     
-    let systemStateOfCharge: SourceAmountViewModel = .init(source: "State of Charge:", amount: "\(model.systemStateOfCharge)")
+    let systemStateOfCharge: TitleAmountViewModel = .init(title: "State of Charge:", amount: "\(model.systemStateOfCharge)%")
     systemStateOfChargeView.setup(with: systemStateOfCharge)
     
-    let totalEnergy: SourceAmountViewModel = .init(source: "Total Energy:", amount: "\(model.totalEnergy)")
+    let totalEnergy: TitleAmountViewModel = .init(title: "Total Energy:", amount: "\(model.totalEnergy)kW")
     totalEnergyView.setup(with: totalEnergy)
     
-    let currentEnergy: SourceAmountViewModel = .init(source: "Current Energy:", amount: "\(model.currentEnergy)")
-    currentEnergyView.setup(with: quasar)
+    let currentEnergy: TitleAmountViewModel = .init(title: "Current Energy:", amount: "\(model.currentEnergy)kW")
+    currentEnergyView.setup(with: currentEnergy)
   }
 }

@@ -1,5 +1,5 @@
 //
-//  SourceAmountView.swift
+//  TitleAmountView.swift
 //  
 //
 //  Created by Manuel Martinez Gomez on 19/9/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SourceAmountView: UIView {
+public final class TitleAmountView: UIView {
   private enum Constant {
     static let fontSize = UIFont.boldSystemFont(ofSize: 12)
     static let horizontalMargin = CGFloat(8)
@@ -37,7 +37,7 @@ final class SourceAmountView: UIView {
     return view
   }()
   
-  init() {
+  public init() {
     super.init(frame: .zero)
     setupView()
     setupConstraints()
@@ -62,8 +62,8 @@ final class SourceAmountView: UIView {
     NSLayoutConstraint.activate(constraints)
   }
   
-  func setup(with model: SourceAmountViewModel) {
-    sourceLabel.text = model.source
+  public func setup(with model: TitleAmountViewModel) {
+    sourceLabel.text = model.title
     amountLabel.text = model.amount
   }
 }
