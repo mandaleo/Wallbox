@@ -28,7 +28,8 @@ public final class DashboardCoordinator: Coordinator {
 // MARK: - DashboardSceneDelegate
 extension DashboardCoordinator: DashboardSceneDelegate {
   func show(historicalData: [HistoricalData]) {
-    let detailCoordinator = DetailCoordinator(navigationController: navigationController)
+    let detailCoordinator = DetailCoordinator(navigationController: navigationController,
+                                              historicalData: historicalData)
     detailCoordinator.start()
   }
 }

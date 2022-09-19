@@ -9,15 +9,20 @@ import WallboxCommon
 import UIKit
 import SwiftUI
 
-public final class DetailCoordinator: Coordinator {
+final class DetailCoordinator: Coordinator {
   private let navigationController: UINavigationController
+  private let historicalData: [HistoricalData]
   
-  public init(navigationController: UINavigationController) {
+  init(navigationController: UINavigationController,
+              historicalData: [HistoricalData]) {
     self.navigationController = navigationController
+    self.historicalData = historicalData
   }
   
-  public func start() {
-    let swiftUIController = UIHostingController(rootView: DetailView())
+  func start() {
+    let viewModel: DetailViewModel = .init(historicalData: historicalData)
+    let detailView: DetailView = .init(viewModel: viewModel)
+    let swiftUIController = UIHostingController(rootView: detailView)
     navigationController.show(swiftUIController, sender: nil)
   }
 }
