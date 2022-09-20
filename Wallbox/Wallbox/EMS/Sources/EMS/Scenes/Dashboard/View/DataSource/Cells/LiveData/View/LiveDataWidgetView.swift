@@ -85,25 +85,32 @@ final class LiveDataWidgetView: UIView {
   }
   
   func setup(with model: LiveDataWidgetViewModel) {
-    let solar: TitleAmountViewModel = .init(title: "Solar:", amount: "\(model.solarPower)kW")
+    let solar: TitleAmountViewModel = .init(title: "Solar:",
+                                            amount: "\(model.solarPower)kW")
     solarPowerView.setup(with: solar)
     
-    let quasar: TitleAmountViewModel = .init(title: "Quasar:", amount: "\(model.quasarsPower)kW")
+    let quasar: TitleAmountViewModel = .init(title: "Quasar:",
+                                             amount: "\(model.quasarsPower)kW")
     quasarPowerView.setup(with: quasar)
     
-    let grid: TitleAmountViewModel = .init(title: "Grid:", amount: "\(model.gridPower)kW")
+    let grid: TitleAmountViewModel = .init(title: "Grid:",
+                                           amount: "\(model.gridPower)kW")
     gridPowerView.setup(with: grid)
     
-    let building: TitleAmountViewModel = .init(title: "Building Demand:", amount: "\(model.buildingDemand)kW")
+    let building: TitleAmountViewModel = .init(title: "Building Demand:",
+                                               amount: "\(model.buildingDemand)kW")
     buildingDemandView.setup(with: building)
     
-    let systemStateOfCharge: TitleAmountViewModel = .init(title: "State of Charge:", amount: "\(model.systemStateOfCharge)%")
+    let systemStateOfCharge: TitleAmountViewModel = .init(title: "State of Charge:",
+                                                          amount: "\(model.systemStateOfCharge)%")
     systemStateOfChargeView.setup(with: systemStateOfCharge)
     
-    let totalEnergy: TitleAmountViewModel = .init(title: "Total Energy:", amount: "\(model.totalEnergy)kW")
+    let totalEnergy: TitleAmountViewModel = .init(title: "Total Energy:",
+                                                  amount: "\(model.totalEnergy)kW")
     totalEnergyView.setup(with: totalEnergy)
     
-    let currentEnergy: TitleAmountViewModel = .init(title: "Current Energy:", amount: "\(model.currentEnergy)kW")
+    let currentEnergy: TitleAmountViewModel = .init(title: "Current Energy:",
+                                                    amount: "\(model.currentEnergy)kW")
     currentEnergyView.setup(with: currentEnergy)
   }
 }

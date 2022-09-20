@@ -16,6 +16,17 @@ final class DashboardView: UIView {
     static let loaderSize: CGSize = .init(width: 60, height: 60)
     static let mainFont = UIFont.boldSystemFont(ofSize: 26)
     static let margin = CGFloat(20)
+    
+    enum CollectionViewLayout {
+      static let numberOfColumns = 2
+      static let widthDimension = NSCollectionLayoutDimension.fractionalWidth(1)
+      static let heightDimension = NSCollectionLayoutDimension.estimated(80)
+      static let contentInsets = NSDirectionalEdgeInsets(top: 10,
+                                                         leading: 10,
+                                                         bottom: 10,
+                                                         trailing: 10)
+      static let interGroupSpacing: CGFloat  = 10
+    }
   }
   
   weak var delegate: DashboardViewDelegate?
@@ -51,7 +62,7 @@ final class DashboardView: UIView {
     super.init(frame: .zero)
     setupView()
     setupConstraints()
-    dataSource.configureLayout(collectionView: collectionView)
+    configureLayout()
     dataSource.setup(collectionView: collectionView)
     dataSource.delegate = self
   }
@@ -82,6 +93,23 @@ final class DashboardView: UIView {
     ]
     
     NSLayoutConstraint.activate(constaints)
+  }
+  
+  private func configureLayout() {
+    collectionView.collectionViewLayout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+      let size = NSCollectionLayoutSize(
+        widthDimension: Constant.CollectionViewLayout.widthDimension,
+        heightDimension: Constant.CollectionViewLayout.heightDimension
+      )
+      let item = NSCollectionLayoutItem(layoutSize: size)
+      let group = NSCollectionLayoutGroup.horizontal(layoutSize: size,
+                                                     subitem: item,
+                                                     count: Constant.CollectionViewLayout.numberOfColumns)
+      let section = NSCollectionLayoutSection(group: group)
+      section.contentInsets = Constant.CollectionViewLayout.contentInsets
+      section.interGroupSpacing = Constant.CollectionViewLayout.interGroupSpacing
+      return section
+    })
   }
   
   func apply(state: DashboardViewModel) {
