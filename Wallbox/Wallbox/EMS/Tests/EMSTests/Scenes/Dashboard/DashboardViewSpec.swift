@@ -33,22 +33,22 @@ final class DashboardViewSpec: XCTestCase {
   
   func test_loading_view() {
     givenLoadingState()
-    assertSnapshot(matching: sut, as: .image, record: true)
+    assertSnapshot(matching: sut, as: .image)
   }
   
   func test_empty_view() {
     givenEmptyState()
-    assertSnapshot(matching: sut, as: .image, record: true)
+    assertSnapshot(matching: sut, as: .image)
   }
   
   func test_error_view() {
     givenErrorState()
-    assertSnapshot(matching: sut, as: .image, record: true)
+    assertSnapshot(matching: sut, as: .image)
   }
   
   func test_loaded_view() {
     givenLoadedState()
-    assertSnapshot(matching: sut, as: .image, record: true)
+    assertSnapshot(matching: sut, as: .image)
   }
 }
 
