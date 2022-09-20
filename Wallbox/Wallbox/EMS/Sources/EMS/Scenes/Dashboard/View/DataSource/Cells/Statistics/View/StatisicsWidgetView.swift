@@ -57,6 +57,7 @@ final class StatisicsWidgetView: UIView {
   
   private func setupView() {
     addSubview(verticalStack)
+    backgroundColor = .white
   }
   
   private func setupConstraints() {

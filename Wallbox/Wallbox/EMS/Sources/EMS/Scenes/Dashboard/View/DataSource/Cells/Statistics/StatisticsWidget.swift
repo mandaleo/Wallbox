@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WallboxUI
 
 final class StatisticsWidget: UICollectionViewCell {
   private enum Constant {
@@ -14,7 +15,7 @@ final class StatisticsWidget: UICollectionViewCell {
   private lazy var cellView: StatisicsWidgetView = {
     let view = StatisicsWidgetView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.backgroundColor = .red
+    view.applyBorderAndShadow()
     return view
   }()
   

@@ -28,6 +28,7 @@ final class AmountEnergyWidgetView: UIView {
     super.init(frame: .zero)
     setupView()
     setupConstraints()
+    backgroundColor = .white
   }
   
   required init?(coder: NSCoder) {

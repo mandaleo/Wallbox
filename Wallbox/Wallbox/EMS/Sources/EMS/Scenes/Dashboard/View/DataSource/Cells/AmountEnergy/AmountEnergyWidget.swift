@@ -6,15 +6,17 @@
 //
 
 import UIKit
+import WallboxUI
 
 final class AmountEnergyWidget: UICollectionViewCell {
   private enum Constant {
     static let margin: CGFloat = 4
   }
+  
   private lazy var cellView: AmountEnergyWidgetView = {
     let view = AmountEnergyWidgetView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.backgroundColor = .red
+    view.applyBorderAndShadow()
     return view
   }()
   

@@ -70,6 +70,7 @@ final class LiveDataWidgetView: UIView {
   
   private func setupView() {
     addSubview(verticalStack)
+    backgroundColor = .white
   }
   
   private func setupConstraints() {

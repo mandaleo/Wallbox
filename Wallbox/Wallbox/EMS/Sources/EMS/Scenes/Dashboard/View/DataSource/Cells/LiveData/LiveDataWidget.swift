@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WallboxUI
 
 final class LiveDataWidget: UICollectionViewCell {
   private enum Constant {
@@ -14,7 +15,7 @@ final class LiveDataWidget: UICollectionViewCell {
   private lazy var cellView: LiveDataWidgetView = {
     let view = LiveDataWidgetView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.backgroundColor = .red
+    view.applyBorderAndShadow()
     return view
   }()
   
