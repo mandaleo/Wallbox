@@ -31,6 +31,7 @@ final class DashboardPresenter: DashboardPresenting {
     var status: Status
     var historicalData: [HistoricalData] = []
     var liveData: LiveData?
+    var widgets: [DashboardWidgetViewModel] = []
   }
   
   weak var ui: DashboardUI?
@@ -38,11 +39,14 @@ final class DashboardPresenter: DashboardPresenting {
   private var state = State(status: .loading)
   private let fetchLiveDataUseCase: FetchLiveDataUseCasing
   private let fetchHistoricalDataUseCase: FetchHistoricalDataUseCasing
+  private let mapper: DashboardMapper
   
   init(fetchLiveDataUseCase: FetchLiveDataUseCasing = FetchLiveDataUseCase(),
-       fetchHistoricalDataUseCase: FetchHistoricalDataUseCasing = FetchHistoricalDataUseCase()) {
+       fetchHistoricalDataUseCase: FetchHistoricalDataUseCasing = FetchHistoricalDataUseCase(),
+       mapper: DashboardMapper = DashboardMapper()) {
     self.fetchLiveDataUseCase = fetchLiveDataUseCase
     self.fetchHistoricalDataUseCase = fetchHistoricalDataUseCase
+    self.mapper = mapper
   }
   
   func onViewDidLoad() async {
@@ -74,12 +78,14 @@ extension DashboardPresenter {
   }
   
   @MainActor
-  func mutateState(with newState: State) {
+  private func mutateState(with newState: State) {
     state.status = newState.status
     switch state.status {
       case .loaded:
         state.liveData = newState.liveData
         state.historicalData = newState.historicalData
+        state.widgets = mapper.widgets(from: state.historicalData,
+                                       and: state.liveData)
       case .empty, .loading:
         state.liveData = nil
         state.historicalData.removeAll()
